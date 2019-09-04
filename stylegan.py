@@ -443,11 +443,13 @@ class StyleGAN_G(Model):
         x = self.model_mapping(inputs)
         x = self.model_synthesis(x)
         return x
-    
+
     def generate_sample(self, seed=5, is_visualize=False):
         rnd = np.random.RandomState(seed)
         latents = rnd.randn(1, 512)
-
+        return self.generate(latents, is_visualize=is_visualize)
+    
+    def generate(self, latents, is_visualize=False):
         y = self.predict(latents)
 
         images = y.transpose([0, 2, 3, 1])
